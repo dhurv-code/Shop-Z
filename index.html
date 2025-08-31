@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Products</h2>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <img src="{{ url_for('static', filename='images/' + product.image) }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text fw-bold">₹{{ product.price }}</p>
+                {% if 'user_id' in session %}
+                <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn btn-success w-100 mb-1">Add to Cart</a>
+                <a href="{{ url_for('buy_now', product_id=product.id) }}" class="btn btn-primary w-100">Buy Now</a>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="btn btn-warning w-100">Login to Buy</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

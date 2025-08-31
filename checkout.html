@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Checkout</h2>
+<p>Total Amount: ₹{{ total }}</p>
+<form method="POST" action="{{ url_for('checkout') }}">
+    {% if buy_now_product %}
+        <input type="hidden" name="product_id" value="{{ buy_now_product.id }}">
+    {% endif %}
+    <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Card Number" required>
+    </div>
+    <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Name on Card" required>
+    </div>
+    <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Expiry Date" required>
+    </div>
+    <div class="mb-3">
+        <input type="text" class="form-control" placeholder="CVV" required>
+    </div>
+    <button type="submit" class="btn btn-success w-100">Pay Now</button>
+</form>
+{% endblock %}

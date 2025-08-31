@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Cart</h2>
+{% if cart %}
+<table class="table align-middle table-bordered shadow-sm bg-white">
+    <thead class="table-primary">
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart %}
+        <tr>
+            <td><img src="{{ url_for('static', filename='images/' + item.image) }}" width="60" class="rounded"></td>
+            <td>{{ item.name }}</td>
+            <td>₹{{ item.price }}</td>
+            <td>
+                <a href="{{ url_for('remove_from_cart', product_id=item.id) }}" class="btn btn-sm btn-danger">
+                    Remove
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr class="fw-bold">
+            <td colspan="2" class="text-end">Total:</td>
+            <td colspan="2">₹{{ total }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between mt-3">
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Continue Shopping</a>
+    <a href="{{ url_for('checkout') }}" class="btn btn-success">Proceed to Checkout</a>
+</div>
+
+{% else %}
+<div class="alert alert-info">Your cart is empty.</div>
+<a href="{{ url_for('index') }}" class="btn btn-primary">Back to Shop</a>
+{% endif %}
+{% endblock %}
